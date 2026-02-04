@@ -12,16 +12,33 @@
             max-width: 220px;
             height: 100vh;
             position: fixed;
-            top: 0;
+            top: 56px;
             left: 0;
-            padding-top: 56px;
+            padding: 16px;
             background: #f8f9fa;
             border-right: 1px solid #dee2e6;
+            overflow-y: auto;
         }
-        .content-area { margin-left: 220px; padding: 24px; }
+        .content-area { margin-left: 220px; padding: 24px; padding-top: 72px; }
         .sidebar .nav-link { color: #333; }
-        .sidebar .nav-link.active { font-weight: 600; }
+        .sidebar .nav-link.active, .sidebar .nav-link:hover { font-weight: 600; color: #0d6efd; }
+        @media (max-width: 768px) {
+            .sidebar { position: relative; height: auto; max-width: none; }
+            .content-area { margin-left: 0; padding-top: 24px; }
+        }
+        .small-muted { color: #6c757d; font-size: 0.9rem; }
     </style>
+    <script>
+        function confirmDelete(form) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                form.submit();
+            }
+        }
+
+        function removeOption(el) {
+            el.closest('.option-row').remove();
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">

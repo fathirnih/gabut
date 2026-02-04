@@ -10,7 +10,8 @@ class AdminPollController extends Controller
 {
     public function index()
     {
-        $polls = Poll::latest()->paginate(20);
+        // load options and options count to avoid N+1 and compute totals in view
+        $polls = Poll::with('options')->withCount('options')->latest()->paginate(20);
         return view('admin.polls.index', compact('polls'));
     }
 
