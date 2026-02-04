@@ -20,7 +20,9 @@
                 <li>
                     <label>
                         <input type="radio" name="option_id" value="{{ $option->id }}"> {{ $option->text }}
-                        <small>({{ $option->votes_count }} votes)</small>
+                        @if(auth()->check() && auth()->user()->isAdmin())
+                            <small>({{ $option->votes_count }} votes)</small>
+                        @endif
                     </label>
                 </li>
             @endforeach

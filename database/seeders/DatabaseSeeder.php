@@ -20,7 +20,11 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role' => 'admin',
         ]);
+
+        // create some member users
+        User::factory(5)->create();
 
         // Seed polls, options, and votes
         $this->call(PollSeeder::class);

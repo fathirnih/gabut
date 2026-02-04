@@ -14,6 +14,25 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ route('polls.index') }}">Polls</a></li>
             </ul>
+
+            <ul class="navbar-nav ms-auto">
+                @guest
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                @else
+                    @if(auth()->user()->isAdmin())
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.polls.index') }}">Admin</a></li>
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+                    @endif
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="btn btn-link nav-link" style="display: inline; padding: 0;">Logout</button>
+                        </form>
+                    </li>
+                @endguest
+            </ul>
         </div>
     </div>
 </nav>
