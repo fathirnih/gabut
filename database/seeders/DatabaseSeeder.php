@@ -21,5 +21,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Seed polls, options, and votes
+        $this->call(PollSeeder::class);
     }
 }
