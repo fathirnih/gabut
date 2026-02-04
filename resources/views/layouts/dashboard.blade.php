@@ -57,12 +57,14 @@
 <aside class="sidebar">
     <div class="px-3">
         <nav class="nav flex-column">
+            <a class="nav-link" href="{{ route('dashboard') }}">Home</a>
+
             @if(auth()->check() && auth()->user()->isAdmin())
                 <a class="nav-link" href="{{ route('admin.polls.index') }}">Polls</a>
                 <a class="nav-link" href="{{ route('admin.users.index') }}">Members</a>
                 <a class="nav-link" href="{{ route('admin.votes.index') }}">Votes</a>
             @else
-                <a class="nav-link" href="{{ route('polls.index') }}">Vote</a>
+                <a class="nav-link" href="{{ route('polls.index') }}">Polls</a>
             @endif
         </nav>
     </div>

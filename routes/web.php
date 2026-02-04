@@ -29,7 +29,11 @@ Route::middleware('auth')->group(function () {
 
 // Admin routes
 Route::prefix('admin')->middleware(['auth', \App\Http\Middleware\RoleMiddleware::class . ':admin'])->group(function () {
-    Route::get('/', [AdminPollController::class, 'index'])->name('admin.polls.index');
+    // admin root now redirects to unified dashboard/home
+    Route::get('/', function () { return redirect()->route('dashboard'); })->name('admin.home');
+
+    // admin polls listing moved to /admin/polls
+    Route::get('/polls', [AdminPollController::class, 'index'])->name('admin.polls.index');
     Route::get('/polls/create', [AdminPollController::class, 'create'])->name('admin.polls.create');
     Route::post('/polls', [AdminPollController::class, 'store'])->name('admin.polls.store');
     Route::get('/polls/{poll}/edit', [AdminPollController::class, 'edit'])->name('admin.polls.edit');

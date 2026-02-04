@@ -9,10 +9,25 @@ use Illuminate\Http\Request;
 
 class PollController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $polls = Poll::latest()->paginate(10);
-        return view('polls.index', compact('polls'));
+        // show polls with options and compute voted polls for current user/ip
+        $polls = Poll::with('options')->latest()->paginate(10);
+
+        $votedPollIds = [];
+        if (auth()->check()) {
+            $votedPollIds = Vote::where('user_id', auth()->id())
+                ->whereIn('poll_id', $polls->pluck('id'))
+                ->pluck('poll_id')
+                ->toArray();
+        } else {
+            $votedPollIds = Vote::where('ip', $request->ip())
+                ->whereIn('poll_id', $polls->pluck('id'))
+                ->pluck('poll_id')
+                ->toArray();
+        }
+
+        return view('polls.index', compact('polls', 'votedPollIds'));
     }
 
     public function show(Poll $poll)
