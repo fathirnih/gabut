@@ -17,14 +17,24 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        // Create a known admin user (email: admin@example.com / password: password)
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
             'role' => 'admin',
+            'password' => bcrypt('password'),
         ]);
 
-        // create some member users
-        User::factory(5)->create();
+        // Create a known member user (email: member@example.com / password: password)
+        User::factory()->create([
+            'name' => 'Member User',
+            'email' => 'member@example.com',
+            'role' => 'member',
+            'password' => bcrypt('password'),
+        ]);
+
+        // create some additional random member users
+        User::factory(3)->create();
 
         // Seed polls, options, and votes
         $this->call(PollSeeder::class);

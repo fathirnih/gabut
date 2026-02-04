@@ -36,4 +36,14 @@ Route::prefix('admin')->middleware(['auth', \App\Http\Middleware\RoleMiddleware:
     Route::put('/polls/{poll}', [AdminPollController::class, 'update'])->name('admin.polls.update');
     Route::delete('/polls/{poll}', [AdminPollController::class, 'destroy'])->name('admin.polls.destroy');
     Route::get('/polls/{poll}/results', [AdminPollController::class, 'results'])->name('admin.polls.results');
+
+    // Admin users
+    Route::get('/users', [App\Http\Controllers\AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{user}/edit', [App\Http\Controllers\AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{user}', [App\Http\Controllers\AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{user}', [App\Http\Controllers\AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Admin votes
+    Route::get('/votes', [App\Http\Controllers\AdminVoteController::class, 'index'])->name('admin.votes.index');
+    Route::delete('/votes/{vote}', [App\Http\Controllers\AdminVoteController::class, 'destroy'])->name('admin.votes.destroy');
 });
